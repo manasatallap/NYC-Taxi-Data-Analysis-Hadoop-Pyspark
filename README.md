@@ -1,4 +1,4 @@
-# NYC Taxi Data Analusis with Hadoop & Pyspark
+# NYC Taxi Data Analysis with Hadoop & Pyspark
 
 ## Overview
 This project analyzes NYC Yellow Taxi data using **Hadoop MapReduce** and **PySpark**, demonstrating scalable data proceessing techniques. The project implements data analysis tasks, including trip distance aggregation, indentifying actie locations, and computing trends over time
@@ -24,6 +24,31 @@ Trips under 2 miles were excluded to focus on significant travel distances and r
 4. Most Active Brooklyn Zone Per Hour
 
 ## How to Run
-git clone
+git clone https://github.com/manasatallap/NYC-Taxi-Data-Analysis-Hadoop-Pyspark.git
+
+### Hadoop
+Needs to be run on Linux, WSL, or Mac. Java and ssh much be installed.
+More detailed instructions: 
+https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
+
+Run:
+/usr/local/hadoop/bin/hadoop jar \
+/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming*.jar \
+-reducer ./reducer1.py -mapper ./mapper1.py -input input/data.csv -output output
+
+Change name of reducer and mapper files from 1-4 depending on task
+
+### PySpark
+Needs Java 8, 11, or 17 with JAVA_HOME properly set. Also needs Python 3.8 or above. 
+Can be easily installed with pip install pyspark
+More detailed instructions: https://spark.apache.org/docs/latest/api/python/getting_started/install.html#:~:text=Python%203.8%20and%20above.
+
+Run:
+./main1.py input/data.csv {output_directory}
+
+For Task 4:
+./main4.py input/data.ccv map.csv output4
+
+
 
 
