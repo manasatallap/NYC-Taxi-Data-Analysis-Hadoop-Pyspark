@@ -1,56 +1,69 @@
-# NYC Taxi Data Analysis with Hadoop & Pyspark
-
+# NYC Taxi Data Analysis with Hadoop & PySpark
 ## Overview
-This project analyzes NYC Yellow Taxi data using **Hadoop MapReduce** and **PySpark**, demonstrating scalable data proceessing techniques. The project implements data analysis tasks, including trip distance aggregation, indentifying actie locations, and computing trends over time
+This project demonstrates large-scale data processing capabilities by analyzing NYC Yellow Taxi trip data using both **Hadoop MapReduce** and **PySpark**. The analysis includes computing trip distances, identifying high-traffic locations, and analyzing temporal patterns in taxi services.
 
-## Technologies Used
-- **Data Processing and Handling:** Hadoop, PySpark (DataFrame API)
-- **Programming:** Python
+## Getting Started
 
-## Implemented Tasks
+### Prerequisites
+- **Hadoop Setup:**
+  - Supported platforms: Linux, WSL, or macOS
+  - Java Runtime Environment
+  - SSH server
+  - Hadoop installation ([Official Setup Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html))
 
-### Hadoop MapReduce
-1. Total Trip Distance by Pickup Location
-2. Total Trip Distance by Pickup Hour
-3. Distinct Drop-off Locations
-4. Top 10 Longest Rides by Distance
+- **PySpark Setup:**
+  - Python 3.8+
+  - Java 8/11/17 with JAVA_HOME configured
+  - PySpark (`pip install pyspark`)
 
-### PySpark (DataFrame API)
-Trips under 2 miles were excluded to focus on significant travel distances and reduce noice from short, frequent rides that may not offer meaningful insights 
-
-1. Total Trip Distance by Pickup Location
-2. Top 10 Most Active Locations (based on pickup/drop-off counts)
-3. Top 3 Days with Highest Average Pickups
-4. Most Active Brooklyn Zone Per Hour
-
-## How to Run
+### Installation
+```bash
 git clone https://github.com/manasatallap/NYC-Taxi-Data-Analysis-Hadoop-Pyspark.git
+cd NYC-Taxi-Data-Analysis-Hadoop-Pyspark
+```
 
-### Hadoop
-Needs to be run on Linux, WSL, or Mac. Java and ssh much be installed.
-More detailed instructions: 
-https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
+### Running the Analysis
 
-Run:
+#### Hadoop MapReduce Tasks
+```bash
 /usr/local/hadoop/bin/hadoop jar \
 /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming*.jar \
--reducer ./reducer1.py -mapper ./mapper1.py -input data.csv -output output
+-reducer ./reducer{N}.py -mapper ./mapper{N}.py \
+-input ../data.csv -output output
+```
+Replace `{N}` with task number (1-4)
 
-Change name of reducer and mapper files from 1-4 depending on task
+#### PySpark Tasks
+```bash
+# Tasks 1-3
+./main{N}.py ../data.csv output_directory
 
-### PySpark
-Needs Java 8, 11, or 17 with JAVA_HOME properly set. Also needs Python 3.8 or above. 
-Can be easily installed with pip install pyspark
-More detailed instructions: https://spark.apache.org/docs/latest/api/python/getting_started/install.html#:~:text=Python%203.8%20and%20above.
+# Task 4 (Brooklyn Zone Analysis)
+./main4.py ../data.csv map.csv output4
+```
+Replace `{N}` with task number (1-3)
 
-Run:
-./main1.py data.csv {output_directory}
+## Analysis Tasks
 
-Change name of main files from 1-3 depending on task
+### Hadoop MapReduce Implementation
+1. **Pickup Location Distance Analysis**: Aggregates total trip distances by pickup location
+2. **Hourly Distance Patterns**: Analyzes trip distances grouped by pickup hour
+3. **Drop-off Location Distribution**: Identifies unique drop-off locations
+4. **Distance-Based Trip Analysis**: Determines the top 10 longest trips
 
-For Task 4:
-./main4.py data.ccv map.csv output4
+### PySpark Implementation
+*Note: All analyses exclude trips under 2 miles to focus on significant travel patterns*
 
+1. **Location-Based Distance Analysis**: Calculates total trip distances per pickup location
+2. **Activity Hotspots**: Identifies top 10 locations based on combined pickup/drop-off frequency
+3. **Weekly Peak Analysis**: Determines the three busiest days based on average pickup counts
+4. **Brooklyn Hourly Patterns**: Analyzes the most active zones in Brooklyn for each hour
 
+## Data Sources
+- **Trip Data**: NYC Taxi & Limousine Commission's [Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+- **Data Dictionary**: Available [here](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf)
+- **Zone Mapping**: TLC Taxi Zone Lookup Table from [NYC Open Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 
-
+## Technologies Used
+- Data Processing and Handling: Hadoop, PySpark (DataFrame API)
+- Programming: Python
