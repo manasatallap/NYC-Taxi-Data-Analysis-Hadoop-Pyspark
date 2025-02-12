@@ -34,7 +34,7 @@ https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCl
 Run:
 /usr/local/hadoop/bin/hadoop jar \
 /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming*.jar \
--reducer ./reducer1.py -mapper ./mapper1.py -input input/data.csv -output output
+-reducer ./reducer1.py -mapper ./mapper1.py -input data.csv -output output
 
 Change name of reducer and mapper files from 1-4 depending on task
 
@@ -44,10 +44,12 @@ Can be easily installed with pip install pyspark
 More detailed instructions: https://spark.apache.org/docs/latest/api/python/getting_started/install.html#:~:text=Python%203.8%20and%20above.
 
 Run:
-./main1.py input/data.csv {output_directory}
+./main1.py data.csv {output_directory}
+
+Change name of main files from 1-3 depending on task
 
 For Task 4:
-./main4.py input/data.ccv map.csv output4
+./main4.py data.ccv map.csv output4
 
 
 
